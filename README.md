@@ -20,3 +20,5 @@ The above command creates a container and it is accessible on port 8080 from hos
 
 Jenkinsfile:
 
+Written a Jenkinsfile with declarative pipeline as code, included build and test stages and push to JFrog Artifactory.
+
