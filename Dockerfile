@@ -21,6 +21,10 @@ RUN mkdir /usr/local/tomcat
 
 # Creating a directory inside the container
 
+RUN apt-get -y install wget
+
+# Installing wget
+
 RUN wget http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.16/bin/apache-tomcat-8.5.16.tar.gz -O /tmp/tomcat.tar.gz
 
 # Downloading the tomcat package file
@@ -43,8 +47,18 @@ HEALTHCHECK --interval=5s \
 
 # Set a health check for the container
 
+WORKDIR /usr/local/tomcat
+
+# Specifying the container to use this as current working directory
+
+VOLUME ["/usr/local/tomcat"]
+
+
+CMD ["/bin/bash"]
+
+# bash shell prompt for the container. In this case, container gets created with /bin/bash
+
 CMD ["tomcat","start"]
 
-# Upon the container creation, CMD starts the tomcat service 
-
+# Upon the container creation, CMD starts the tomcat service  
 
