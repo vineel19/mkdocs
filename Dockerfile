@@ -16,7 +16,7 @@ RUN add-apt-repository ppa:webupd8team/java
 
 RUN apt-get -y update
 
-RUN mkdir /usr/local/tomcat
+RUN mkdir /mkdocs/usr/local/tomcat
 
 # Creating a directory inside the container
 
@@ -32,18 +32,18 @@ RUN cd /tmp && tar xvfz tomcat.tar.gz
 
 # Untar a tar.gz file
 
-RUN cp -R /tmp/apache-tomcat-8.5.16/* /usr/local/tomcat/
+RUN cp -R /tmp/apache-tomcat-8.5.16/* /mkdocs/usr/local/tomcat/
 
 # Copying the tomcat package file to container
 
-WORKDIR /usr/local/tomcat
+WORKDIR /mkdocs/usr/local/tomcat
 
 # Specifying the container to use this as current working directory
 
-ADD /mkdocs /usr/local/tomcat
+ADD /mkdocsrootvol /mkdocs/usr/local/tomcat
 
 # ADD command copies new files, directories or remote file URLs from <src> and adds them to the filesystem of the image at the path <dest>.
-# Here /mkdocs directory consists of the application(war) file. So, the application will be deployed to the container.
+# Here /mkdocsrootvol directory consists of the application(war) file. So, we copy and deploy the application to the container.
 
 EXPOSE 8000
 
@@ -55,9 +55,9 @@ HEALTHCHECK --interval=5s \
 
 # This will perform health check of the container
 
-VOLUME ["/mkdocsvol"]
+VOLUME ["/mkdocs"]
 
-# A volume with the name "mkdocsvol" gets created
+# A volume with the name "mkdocs" gets created
 
 CMD ["tomcat.sh","run"]
 
