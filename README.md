@@ -12,7 +12,7 @@ Need to run the below command to build the image from the Dockerfile
 
 docker build -t mkdocs .
 
-Docker image with name mkdocs gets created. Once we have a image, we need to create a Docker container from the below command.
+It takes the Docker file from the current directory and Docker image with name mkdocs gets created. Once we have a image, we need to create a Docker container from the below command.
 
 docker run -it -p 8080:8080 -v /mkdocsrootvol : /usr/local/tomcat /bin/bash
 
@@ -20,5 +20,5 @@ The above command creates a container and it is accessible on port 8080 from hos
 
 Jenkinsfile:
 
-Written a Jenkinsfile with declarative pipeline as code, included build and test stages and push to JFrog Artifactory.
+Written a Jenkinsfile with declarative pipeline as code, and included build and test stages and push to JFrog Artifactory.
 
