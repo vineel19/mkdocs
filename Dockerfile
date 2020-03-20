@@ -37,7 +37,7 @@ RUN cp -R /tmp/apache-tomcat-8.5.16/* /usr/local/tomcat/
 
 # Copying the tomcat package file to container
 
-EXPOSE 8080
+EXPOSE 8000
 
 # The tomcat application will be accessible on port 8080
 
