@@ -57,7 +57,7 @@ HEALTHCHECK --interval=5s \
 
 VOLUME ["/mkdocs"]
 
-# A volume with the name "mkdocs" gets created
+# A volume with the name "mkdocs" gets created in the container
 
 CMD ["tomcat.sh","run"]
 
