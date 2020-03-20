@@ -47,17 +47,17 @@ ADD /mkdocs /usr/local/tomcat
 
 EXPOSE 8000
 
-# The tomcat application will be accessible on port 8080
+# The tomcat application will be accessible on port 8000
 
 HEALTHCHECK --interval=5s \
             --timeout=5s \
-	    CMD curl -f http://127.0.0.1:8080 || exit 1
+             CMD curl -f http://127.0.0.1:8000 || exit 1
 
 # This will perform health check of the container
 
-VOLUME ["/mkdocs"]
+VOLUME ["/mkdocsvol"]
 
-# A volume with the name "mkdocs" gets created
+# A volume with the name "mkdocsvol" gets created
 
 CMD ["tomcat.sh","run"]
 
