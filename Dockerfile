@@ -4,12 +4,11 @@ FROM ubuntu:latest
 
 RUN apt-get -y update && apt-get -y upgrade
 
-# apt-get upgrade actually installs newer versions of the packages you have. After updating the lists, the package manager knows about available updates for the software you have installed. This is why you first want to update
+# apt-get upgrade actually installs newer versions of the package.
 
 RUN apt-get -y install software-properties-common
 
 # Installing the prerequisites for the tomcat application
-
 
 RUN add-apt-repository ppa:webupd8team/java
 
@@ -37,6 +36,15 @@ RUN cp -R /tmp/apache-tomcat-8.5.16/* /usr/local/tomcat/
 
 # Copying the tomcat package file to container
 
+WORKDIR /usr/local/tomcat
+
+# Specifying the container to use this as current working directory
+
+ADD /mkdocs /usr/local/tomcat
+
+# ADD command copies new files, directories or remote file URLs from <src> and adds them to the filesystem of the image at the path <dest>.
+# Here /mkdocs directory consists of the application(war) file. So, the application will be deployed to the container.
+
 EXPOSE 8000
 
 # The tomcat application will be accessible on port 8080
@@ -45,20 +53,13 @@ HEALTHCHECK --interval=5s \
             --timeout=5s \
 	    CMD curl -f http://127.0.0.1:8080 || exit 1
 
-# Set a health check for the container
+# This will perform health check of the container
 
-WORKDIR /usr/local/tomcat
+VOLUME ["/mkdocs"]
 
-# Specifying the container to use this as current working directory
+# A volume with the name "mkdocs" gets created
 
-VOLUME ["/usr/local/tomcat"]
+CMD ["tomcat.sh","run"]
 
-
-CMD ["/bin/bash"]
-
-# bash shell prompt for the container. In this case, container gets created with /bin/bash
-
-CMD ["tomcat","start"]
-
-# Upon the container creation, CMD starts the tomcat service  
+# Upon the container creation, CMD starts the tomcat web application. 
 
