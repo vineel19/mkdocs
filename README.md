@@ -14,7 +14,7 @@ docker build -t mkdocs .
 
 It takes the Docker file from the current directory and Docker image with name mkdocs gets created. Once we have a image, we need to create a Docker container from the below command.
 
-docker run -it -p 8080:8080 -v /mkdocsrootvol : /usr/local/tomcat /bin/bash
+docker run -it -p 8000:8000 -v /mkdocsrootvol : /usr/local/tomcat /bin/bash
 
 The above command creates a container and it is accessible on port 8080 from host machine and mounts the mkdocsrootvol in local host to container volume
 
