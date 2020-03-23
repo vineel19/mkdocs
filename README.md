@@ -1,6 +1,6 @@
 Python 3.6 on Alpine
 
-MkDocs is a simple static website generator that's geared towards building project documentation. Documentation source files are written in Markdown, and configured with a single YAML configuration file.
+MkDocs is a simple static website generator. Documentation source files are written in Markdown, and configured with a single YAML configuration file.
 
 Description:
 
