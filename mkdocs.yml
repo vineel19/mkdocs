@@ -1,7 +1,8 @@
 site_name: MkLorum
 site_url: null
 repo_url: https://github.com/example/repository/
-repo_name: 'GitHub' 
+repo_name: 'GitHub'
+docs_dir: docs
 edit_uri: 'edit/master/docs/'
 site_description: null
 site_author: null
