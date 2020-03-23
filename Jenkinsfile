@@ -28,10 +28,15 @@ pipeline {
     }
 
     stage('Push image') {
+	 
+	    environment {
+		    
+		    DOCKER_CREDENTIALS = credentials('ldap')
+	    }
 
         sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWD} registry"
 
-        docker.withRegistry('https://registry.hub.docker.com', 'DOCKERCREDENTIALS') {
+        docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_CREDENTIALS') {
             
 	app.push("${env.BUILD_NUMBER}")
 
