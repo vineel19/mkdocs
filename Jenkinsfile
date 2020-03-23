@@ -14,7 +14,7 @@ pipeline {
 
     stage('Build image') {
 
-        app = docker.build("mkdocs-docker")
+        app = docker.build("docker-mkdocs")
     }
 
     stage('Test image') {
