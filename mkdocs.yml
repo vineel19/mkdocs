@@ -1,0 +1,19 @@
+site_name: MkLorum
+site_url: null
+repo_url: https://github.com/example/repository/
+repo_name: 'GitHub' 
+edit_uri: 'edit/master/docs/'
+site_description: null
+site_author: null
+copyright: null
+
+nav:
+  - Home: index.md
+  - About: about.md
+
+theme: 
+  name: mkdocs
+  highlightjs: true
+  hljs_languages:
+    - yaml
+  include_homepage_in_sidebar: true

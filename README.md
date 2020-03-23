@@ -1,24 +1,23 @@
-# mkdocs
-MKDocs-Project-Repository
+Python 3.6 on Alpine
 
+MkDocs is a simple static website generator that's geared towards building project documentation. Documentation source files are written in Markdown, and configured with a single YAML configuration file.
 
-This repository is about MkDocs application website. 
+Description:
 
-Dockerfile:
+In mkdocs.yml, theme: amelia to use amelia theme.
 
-I have written a docker file with a ubuntu base image with tomcat web application. Included the health checks of the container application and exposed the ports to access the application as part of Dockerfile.
+Bootstrap mkdocs project in the current directory:
 
-Need to run the below command to build the image from the Dockerfile
+docker run -it -p 8000:8000 docker-mkdocs .
 
-docker build -t mkdocs .
+Project configuration file (mkdocs.yml, docs) is under path /container-workspace from docker image "docker-mkdocs"
 
-It takes the Docker file from the current directory and Docker image with name mkdocs gets created. Once we have a image, we need to create a Docker container from the below command.
+Serving mkdocs project in the current directory:
 
-docker run -it -p 8000:8000 -v /mkdocsrootvol : /mkdocs/usr/local/tomcat /bin/bash
+docker run -it -p 8000:8000 -v /host-workspace:/container-workspace docker-mkdocs serve -a 127.0.0.1:8000
 
-The above command creates a container and it is accessible on port 8080 from host machine and mounts the mkdocsrootvol in local host to  volume in the container
+Building the mkdocs project:
 
-Jenkinsfile:
+docker run -it -v /host-workspace:/container-workspace docker-mkdocs build
 
-Written a Jenkinsfile with declarative pipeline as code, and included build and test stages and push to JFrog Artifactory.
 

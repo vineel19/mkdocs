@@ -4,12 +4,14 @@ RUN apk --no-cache add lftp ca-certificates openssh && \
     pip install --upgrade pip
     pip install mkdocs
     
-RUN mkdir /workdir
-WORKDIR /workdir
+RUN mkdir /container-workspace
+WORKDIR /container-workspace
 
 COPY mkdocs.yml ./mkdocs.yml
 COPY docs ./docs
 
 EXPOSE 8000
 
-CMD mkdocs server
+ENTRYPOINT ["mkdocs"]
+
+CMD ["serve", "--dev-addr=127.0.0.1:8000"]
