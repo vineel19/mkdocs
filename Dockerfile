@@ -1,65 +1,15 @@
-FROM ubuntu:latest
+FROM python:3.6.0-alpine
 
-# Taking the ubuntu base image
+RUN apk --no-cache add lftp ca-certificates openssh && \
+    pip install --upgrade pip
+    pip install mkdocs
+    
+RUN mkdir /workdir
+WORKDIR /workdir
 
-RUN apt-get -y update && apt-get -y upgrade
-
-# apt-get upgrade actually installs newer versions of the package.
-
-RUN apt-get -y install software-properties-common
-
-# Installing the prerequisites for the tomcat application
-
-RUN add-apt-repository ppa:webupd8team/java
-
-# A Personal Package Archive (PPA) is a software repository for uploading source packages to be built and published as an Advanced Packaging Tool (APT)//
-
-RUN apt-get -y update
-
-RUN mkdir /mkdocs/usr/local/tomcat
-
-# Creating a directory inside the container
-
-RUN apt-get -y install wget
-
-# Installing wget
-
-RUN wget http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.16/bin/apache-tomcat-8.5.16.tar.gz -O /tmp/tomcat.tar.gz
-
-# Downloading the tomcat package file
-
-RUN cd /tmp && tar xvfz tomcat.tar.gz
-
-# Untar a tar.gz file
-
-RUN cp -R /tmp/apache-tomcat-8.5.16/* /mkdocs/usr/local/tomcat/
-
-# Copying the tomcat package file to container
-
-WORKDIR /mkdocs/usr/local/tomcat
-
-# Specifying the container to use this as current working directory
-
-ADD /mkdocsrootvol /mkdocs/usr/local/tomcat
-
-# ADD command copies new files, directories or remote file URLs from <src> and adds them to the filesystem of the image at the path <dest>.
-# Here /mkdocsrootvol directory consists of the application(war) file. So, we copy and deploy the application to the container.
+COPY mkdocs.yml ./mkdocs.yml
+COPY docs ./docs
 
 EXPOSE 8000
 
-# The tomcat application will be accessible on port 8000
-
-HEALTHCHECK --interval=5s \
-            --timeout=5s \
-             CMD curl -f http://127.0.0.1:8000 || exit 1
-
-# This will perform the health check of container
-
-VOLUME ["/mkdocs"]
-
-# A volume with the name "mkdocs" gets created.
-
-CMD ["tomcat.sh","run"]
-
-# Upon the container creation, CMD starts the tomcat web application. 
-
+CMD mkdocs server
